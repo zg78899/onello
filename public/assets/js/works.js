@@ -137,7 +137,7 @@ const renderPopup = (workTitle, subWorkTitle, wrtieDate, labels) => {
             <button type="button" class="btn-save btn40 c5 mt10" style="width: 80px;">Save</button>
           </div>
 
-          <div class="checklist-area">
+          <div class="checklist-area hide">
             <div class="area-title">checklist</div>
             <div class="progress-contents">
               <span class="complete-percent">98%</span>
@@ -150,7 +150,6 @@ const renderPopup = (workTitle, subWorkTitle, wrtieDate, labels) => {
               <li><label class="chk" for="check2"><input id="check2" type="checkbox"><span>ddasda</span></label></li>
             </ul>
             <button type="button" class="btn-check-add btn40 c5 mt20" style="width: 120px;">add an item</button>
-            <button type="button" class="btn-delete btn30 c6" style="width: 100px;">delete</button>
           </div>
         </div>
 
@@ -162,7 +161,7 @@ const renderPopup = (workTitle, subWorkTitle, wrtieDate, labels) => {
             </ul>
           </div>
           <div class="add-check">
-            <button type="button" class="btn-checklist btn40 c2" style="width: 100%;">CHECKLIST</button>
+            <button type="button" class="btn-checklist btn40 c2" style="width: 100%;">CHECKLIST SHOW</button>
           </div>
         </div>
       </div>`;
@@ -223,7 +222,7 @@ const createSubwork = (workId, value) => {
 
       maxId = work.list.length ? Math.max(...[...work.list].map(subwork => subwork.id)) + 1 : 1;
 
-      return [...work.list, { id: maxId, title: value, date: currentTime(), labels: [{ state: 'low', check: false }, { state: 'medium', check: false }, { state: 'high', check: false }, { state: 'veryhigh', check: false }] }];
+      return [...work.list, { id: maxId, title: value, date: currentTime(),Description:'', labels: [{ state: 'low', check: false }, { state: 'medium', check: false }, { state: 'high', check: false }, { state: 'veryhigh', check: false }] }];
     })
     .then(subwork => {
       ajax.patch(`http://localhost:3000/works/${workId}`, { id: workId, list: subwork })
@@ -290,6 +289,7 @@ const openPopup = (titleId, subTitleId) => {
   let subWorkTitle = '';
   let wrtieDate = '';
   let labels = '';
+  let checkList = '';
 
   ajax.get(`http://localhost:3000/works/${titleId}`)
     .then(work => JSON.parse(work))
@@ -311,6 +311,20 @@ const openPopup = (titleId, subTitleId) => {
       $closeBtn.onclick = ({ target }) => {
         closePopup(target);
       };
+      const $btnChecklist = document.querySelector('.btn-checklist');
+      const $checklistArea = document.querySelector('.checklist-area');
+      $btnChecklist.onclick = () => {
+        $checklistArea.classList.toggle('hide');
+        $btnChecklist.textContent === 'CHECKLIST HIDE' ? $btnChecklist.textContent = 'CHECKLIST SHOW' : $btnChecklist.textContent = 'CHECKLIST HIDE';
+
+        // .then(subworks=>subworks.filter(subwork=>subwork.id===));
+      };
+      const $btnSave= document.querySelector('.btn-save');
+      $btnSave.onclick=()=>{
+        if($btnSava.value !== ''){
+
+        }
+      }
 
       const $labels = document.querySelector('.labels');
 
@@ -319,13 +333,24 @@ const openPopup = (titleId, subTitleId) => {
 
         subwork[0].labels.map(label => label.state === stateId ? label.check = !label.check : label);
 
+
         ajax.get(`http://localhost:3000/works/${titleId}`)
           .then(work => JSON.parse(work))
           .then(work => work.list)
-          .then(console.log)
-          // .then(subWorkList => subworkRender(titleId, subWorkList))
+          .then(console.log);
+
+        // .then(work=>{
+        //   ajax.patch(`http://localhost:3000/works/${titleId}`,{})
+        // })
+        // .then(work=>subwork[0].labels.map(label => label.state === stateId ? label.check = !label.check : label))
+        // .then(ajax.patch())
+        // .then(work=>label=console.log(work.labels))
+        // .then(subWorkList => subworkRender(titleId, subWorkList))
       };
     });
+  // const $btnChecklist = document.querySelector('.btn-checklist');
+  // $btnChecklist.addEventListener('click', (e) => console.log('클릭', e.target));
+
 };
 
 
