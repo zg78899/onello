@@ -141,7 +141,10 @@ const renderPopup = (workTitle, subWorkTitle, writeDate, labels, description) =>
               <li><label class="chk" for="check1"><input id="check1" type="checkbox"><span>ddasda</span></label></li>
               <li><label class="chk" for="check2"><input id="check2" type="checkbox"><span>ddasda</span></label></li>
             </ul>
+            <div class="add-checklist-box>
             <button type="button" class="btn-check-add btn40 c5 mt20" style="width: 120px;">add an item</button>
+            <input class="add-checklist-input" type="text" placeholder="add an more item">
+            </div>
           </div>
         </div>
         <div class="popup-add-ons">
@@ -283,7 +286,6 @@ const openPopup = (titleId, subTitleId) => {
 
         $checklistArea.classList.toggle('hide');
       };
- 
       $descriptionBtn.onclick = () => {
         if ($descriptionBtn.classList.contains('save')) {
           if ($descriptionTextarea.value.trim() !== '') {
@@ -339,10 +341,11 @@ const openPopup = (titleId, subTitleId) => {
       };
 
       $popup.onclick = e => {
-        if (e.target.classList.contains('btn-close-popup') || e.target.classList.contains('dim')) console.log(111);
+        if (e.target.classList.contains('btn-close-popup') || e.target.classList.contains('dim')) {
+          $popup.remove();
 
-        $popup.remove();
-        e.stopPropagation();
+          e.stopPropagation();
+        }
       };
 
       $labels.onchange = ({ target }) => {
@@ -362,8 +365,8 @@ const openPopup = (titleId, subTitleId) => {
           });
       };
     });
-};
 
+};
 // Events
 window.onload = () => {
   getWork();
