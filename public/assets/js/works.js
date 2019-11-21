@@ -101,13 +101,13 @@ const descriptionDisplay = description => {
   if (description === undefined) {
     html += `
     <textarea class="description-content" placeholder="Add a more detailed Description.."></textarea>
-    <div class="description-textbox hide"></div>
-    <button type="button" class="btn-save btn40 c5 mt10" style="width: 80px;">Save</button>`;
+    <div class="description-textbox hide">${description}</div>
+    <button type="button" class="description-btn save btn40 mt10" style="width: 80px;">Save</button>`;
   } else {
     html += `
     <textarea class="description-content hide" placeholder="Add a more detailed Description.."></textarea>
     <div class="description-textbox">${description}</div>
-    <button type="button" class="btn-save btn40 c7 mt10" style="width: 80px;">Modify</button>`;
+    <button type="button" class="description-btn modify btn40 mt10" style="width: 80px;">Modify</button>`;
   }
   return html;
 };
@@ -215,6 +215,7 @@ const workTitle = (workId, value) => {
     .then(ajax.patch(`http://localhost:3000/works/${workId}`, { id: workId, title: value }))
     .then(getWork);
 };
+
 const add = (target, keyCode) => {
   if (target.value === undefined) return;
   let value = target.value.trim();
@@ -275,33 +276,65 @@ const openPopup = (titleId, subTitleId) => {
       const $btnChecklist = document.querySelector('.btn-checklist');
       const $checklistArea = document.querySelector('.checklist-area');
       const $description = document.querySelector('.description-content');
-      const $btnSave = document.querySelector('.btn-save');
+      const $descriptionBtn = document.querySelector('.description-btn');
+      // const $btnSave = document.querySelector('.btn-save');
+      // const $btnModify = document.querySelector('.btn-modify');
       const $descriptionTextbox = document.querySelector('.description-textbox');
+
       $btnChecklist.onclick = () => {
-        $btnChecklist.innerHTML === 'CHECKLIST HIDE' ? $btnChecklist.innerHTML = 'CHECKLIST SHOW' : $btnChecklist.innerHTML = 'CHECKLIST HIDE';
+        $btnChecklist.textContent === 'CHECKLIST HIDE' ? $btnChecklist.innerHTML = 'CHECKLIST SHOW' : $btnChecklist.textContent = 'CHECKLIST HIDE';
+
         $checklistArea.classList.toggle('hide');
       };
-      $btnSave.onclick = () => {
-        if ($description.value.trim() !== '') {
-          $description.classList.add('hide');
-          $btnSave.classList.add('hide');
-          $descriptionTextbox.classList.remove('hide');
-          $descriptionTextbox.innerHTML = $description.value;
+ 
+      $descriptionBtn.onclick = () => {
+        if ($descriptionBtn.classList.contains('save')) {
+          if ($description.value.trim() !== '') {
+            $description.classList.add('hide');
+            $descriptionBtn.classList.remove('save');
+            $descriptionBtn.classList.add('modify');
+            $descriptionBtn.textContent = 'Modify';
+            $descriptionTextbox.classList.remove('hide');
+            $descriptionTextbox.textContent = $description.value;
+            ajax.get(`http://localhost:3000/works/${titleId}`)
+              .then(res => JSON.parse(res).list)
+              .then(subTitle => subTitle.filter(item => item.id === +subTitleId))
+              .then(subWorks => {
+                subWorks[0]['description'] = `${$description.value}`;
+                return subWorks[0]['description'];
+              })
+              .then(description => {
+                const data = workList.map(item => item.id === +subTitleId ? item = { ...item, id: +subTitleId, description  } : item);
+                ajax.patch(`http://localhost:3000/works/${titleId}`, {
+                  id: +titleId,
+                  title: workTitle,
+                  list: data
+                });
+              });
+          }
+        } else {
+          $description.classList.remove('hide');
+          $descriptionBtn.classList.add('save');
+          $descriptionBtn.classList.remove('modify');
+          $descriptionBtn.textContent = 'Save';
+          $descriptionTextbox.classList.add('hide');
+          $description.classList.remove('hide');
+          $description.textContent = $description.value;
           ajax.get(`http://localhost:3000/works/${titleId}`)
             .then(res => JSON.parse(res).list)
             .then(subTitle => subTitle.filter(item => item.id === +subTitleId))
             .then(subWorks => {
-              if (subWorks[0].description === undefined) subWorks[0]['description'] = `${$description.value}`;
+              subWorks[0]['description'] = `${$description.value}`;
               return subWorks[0]['description'];
             })
             .then(description => {
-              const data = workList.map(item => item.id === +subTitleId ? item = { ...item, id: +subTitleId, description } : item);
+              const data = workList.map(item => item.id === +subTitleId ? item = { ...item, id: +subTitleId, description  } : item);
               ajax.patch(`http://localhost:3000/works/${titleId}`, {
                 id: +titleId,
                 title: workTitle,
                 list: data
-              })
-            })
+              });
+            });
         }
       };
       const $closeBtn = document.querySelector('.btn-close-popup');
@@ -327,6 +360,7 @@ const openPopup = (titleId, subTitleId) => {
       };
     });
 };
+
 // Events
 window.onload = () => {
   getWork();
