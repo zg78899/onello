@@ -39,16 +39,12 @@ const ajax = (() => {
 
 const state = labels => {
   if (labels === undefined) return '';
-
   let html = '';
-
   labels = labels.filter(label => label.check);
-
   labels.forEach(label => {
     html += `
       <span class="${label.state}">${label.state}</span>`;
   });
-
   return html;
 };
 
@@ -93,7 +89,6 @@ const render = works => {
       <button type="button" class="delete-main-work">삭제</button>
     </li>`;
   });
-
   $mainWork.innerHTML = html;
   yRail();
 };
@@ -113,9 +108,7 @@ const labelState = labels => {
 
 const renderPopup = (workTitle, subWorkTitle, writeDate, labels) => {
   const $node = document.createElement('div');
-
   $node.classList.add('popup-wrap');
-
   $node.innerHTML += `
     <div class="register-popup">
       <div class="popup-header">
@@ -123,17 +116,15 @@ const renderPopup = (workTitle, subWorkTitle, writeDate, labels) => {
         <div class="popup-subtitle">in list <a href="#self">${workTitle}</a></div>
         <div class="popup-created-time">${writeDate}</div>
       </div>
-
       <button type="button" class="btn-close-popup layer-close">X</button>
-
       <div class="popup-main-content clear-fix">
         <div class="content-area">
           <div class="description-area">
             <div class="area-title">Description</div>
-            <textarea class="description-content" placeholder="Add a more detailed Description.."></textarea>
+            <textarea class="description-content hide" placeholder="Add a more detailed Description.."></textarea>
+            <div class="description-text hide">1233</div>
             <button type="button" class="btn-save btn40 c5 mt10" style="width: 80px;">Save</button>
           </div>
-
           <div class="checklist-area hide">
             <div class="area-title">checklist</div>
             <div class="progress-contents">
@@ -149,7 +140,6 @@ const renderPopup = (workTitle, subWorkTitle, writeDate, labels) => {
             <button type="button" class="btn-check-add btn40 c5 mt20" style="width: 120px;">add an item</button>
           </div>
         </div>
-
         <div class="popup-add-ons">
           <div class="labels">
             <div class="title">LABELS</div>
@@ -162,7 +152,6 @@ const renderPopup = (workTitle, subWorkTitle, writeDate, labels) => {
           </div>
         </div>
       </div>`;
-
   $wrap.appendChild($node);
 };
 
@@ -208,7 +197,6 @@ const currentTime = () => {
 
 const createSubwork = (workId, value) => {
   let maxId = 0;
-
   ajax.get(`http://localhost:3000/works/${workId}`)
     .then(res => JSON.parse(res))
     .then(work => {
@@ -276,7 +264,6 @@ const deleteSubwork = (titleId, subTitleId) => {
 
 const closePopup = (target) => {
   const $popup = target.parentNode.parentNode;
-
   $popup.remove();
 };
 
@@ -304,23 +291,37 @@ const openPopup = (titleId, subTitleId) => {
 
       renderPopup(workTitle, subWorkTitle, writeDate, labels);
 
+      const $btnChecklist = document.querySelector('.btn-checklist');
+      const $checklistArea = document.querySelector('.checklist-area');
+      const $description = document.querySelector('.description-content');
+      const $btnSave = document.querySelector('.btn-save');
+      const $descriptionText=document.querySelector('.description-text');
+
+      $btnChecklist.onclick = () => {
+        $btnChecklist.innerHTML === 'CHECKLIST HIDE' ? $btnChecklist.innerHTML = 'CHECKLIST SHOW' : $btnChecklist.innerHTML = 'CHECKLIST HIDE';
+        $checklistArea.classList.toggle('hide');
+      };
+
+      $btnSave.onclick = () => {
+        if($description.value.trim() !== ''){
+          $description.classList.add('hide');
+        }else{
+          $description.classList.remove('hide');
+        }
+      };
+
       const $closeBtn = document.querySelector('.btn-close-popup');
 
       $closeBtn.onclick = ({ target }) => {
         closePopup(target);
       };
-      const $btnChecklist = document.querySelector('.btn-checklist');
-      const $checklistArea = document.querySelector('.checklist-area');
       $btnChecklist.onclick = () => {
         $checklistArea.classList.toggle('hide');
         $btnChecklist.textContent === 'CHECKLIST HIDE' ? $btnChecklist.textContent = 'CHECKLIST SHOW' : $btnChecklist.textContent = 'CHECKLIST HIDE';
 
-        // .then(subworks=>subworks.filter(subwork=>subwork.id===));
       };
-      const $btnSave= document.querySelector('.btn-save');
       $btnSave.onclick=()=>{
-        if($btnSava.value !== ''){
-
+        if($.value !== ''){
         }
       }
 
@@ -328,9 +329,7 @@ const openPopup = (titleId, subTitleId) => {
 
       $labels.onchange = ({ target }) => {
         const stateId = target.parentNode.parentNode.id;
-
         subwork[0].labels.map(label => label.state === stateId ? label.check = !label.check : label);
-
         const data = workList.map(item => item.id === +subTitleId ? item = { ...item, id: +subTitleId, labels: subwork[0].labels } : item);
 
         ajax.patch(`http://localhost:3000/works/${titleId}`, {
@@ -351,7 +350,6 @@ const openPopup = (titleId, subTitleId) => {
 
 };
 
-
 // Events
 window.onload = () => {
   getWork();
@@ -371,7 +369,6 @@ $mainCreateInput.onkeyup = ({ target, keyCode }) => {
 
 $mainCreateInput.onblur = ({ target }) => {
   const value = target.value.trim();
-
   if (value !== '') return;
   target.previousElementSibling.classList.remove('on');
 };
@@ -381,7 +378,6 @@ $mainWork.onclick = ({ target }) => {
 
   if (target.classList.contains('delete-main-work')) {
     const id = target.parentNode.id;
-
     deleteWork(id);
   }
 

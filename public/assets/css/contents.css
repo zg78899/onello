@@ -114,6 +114,16 @@
   border-radius: 10px;
   border: none;
   resize: none;
+  /* display: none; */
+}
+.description-text{
+  height: 150px;
+  border-radius: 10px;
+  background: #dedede;
+  font-size: 1.8rem;
+  padding: 10px;
+  /* border: none; */
+  /* resize: none; */
 }
 
 .area-title {
@@ -308,6 +318,6 @@
   margin: 20px 0 0;
 }
 
-.class{
+.hide {
   display: none;
 }
