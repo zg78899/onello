@@ -10484,7 +10484,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     var html = '';
 
     if (description === undefined) {
-      html += "\n      <textarea class=\"description-content\" placeholder=\"Add a more detailed Description..\"></textarea>\n      <div class=\"description-textbox hide\">".concat(description, "</div>\n      <button type=\"button\" class=\"description-btn save btn40 mt10\" style=\"width: 80px;\">Save</button>");
+      html += "\n      <textarea class=\"description-content\" placeholder=\"Add a more detailed Description..\"></textarea>\n      <div class=\"description-textbox hide\"></div>\n      <button type=\"button\" class=\"description-btn save btn40 mt10\" style=\"width: 80px;\">Save</button>";
     } else {
       html += "\n      <textarea class=\"description-content hide\" placeholder=\"Add a more detailed Description..\">".concat(description, "</textarea>\n      <div class=\"description-textbox\">").concat(description, "</div>\n      <button type=\"button\" class=\"description-btn modify btn40 mt10\" style=\"width: 80px;\">Modify</button>");
     }
@@ -10496,7 +10496,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     if (checklist === undefined) return '';
     var html = '';
     checklist.forEach(function (list) {
-      html += "\n        <li>\n          <label class=\"chk\" for=\"".concat(list.id, "\">\n            <input id=\"").concat(list.id, "\" type=\"checkbox\" ").concat(list.completed ? 'checked' : '', "><span>").concat(list.content, "</span>\n          </label>\n        </li>");
+      html += "\n        <li class=\"".concat(list.completed ? 'check' : '', "\">\n          <label class=\"chk\" for=\"").concat(list.id, "\">\n            <input id=\"").concat(list.id, "\" type=\"checkbox\" ").concat(list.completed ? 'checked' : '', "><span>").concat(list.content, "</span>\n          </label>\n        </li>");
     });
     return html;
   };
@@ -10525,6 +10525,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   };
 
   var getMaxId = function getMaxId() {
+    var maxId = null;
     ajax.get('http://localhost:3000/works').then(function (res) {
       return JSON.parse(res);
     }).then(function (works) {
@@ -10690,6 +10691,8 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       var $checkListInput = document.querySelector('.add-checklist-input');
       var $checkListAddBtn = document.querySelector('.btn-check-add');
       var $checklist = document.querySelector('.check-list');
+      var $completePer = document.querySelector('.complete-percent');
+      var $successBar = document.querySelector('.success-bar');
 
       $btnChecklist.onclick = function () {
         $btnChecklist.textContent === 'CHECKLIST HIDE' ? $btnChecklist.innerHTML = 'CHECKLIST SHOW' : $btnChecklist.textContent = 'CHECKLIST HIDE';
@@ -10793,9 +10796,12 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         }).then(function (work) {
           return work.list;
         }).then(function (subwork) {
-          if (subwork[0].checklist === undefined) subwork[0]['checklist'] = [];
-          var maxId = subwork[0].checklist.length ? subwork[0].checklist.length + 1 : 1;
-          var checklistValue = [].concat(_toConsumableArray(subwork[0].checklist), [{
+          var thisSub = subwork.filter(function (sub) {
+            return sub.id === +subTitleId;
+          });
+          if (thisSub[0].checklist === undefined) thisSub[0].checklist = [];
+          var maxId = thisSub[0].checklist.length ? thisSub[0].checklist.length + 1 : 1;
+          var checklistValue = [].concat(_toConsumableArray(thisSub[0].checklist), [{
             id: "check".concat(titleId, "0").concat(maxId),
             content: content,
             completed: false
@@ -10811,7 +10817,9 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             title: workTitle,
             list: data
           }).then(function (res) {
-            $checklist.innerHTML += "\n                    <li>\n                      <label class=\"chk\" for=\"check".concat(titleId, "0").concat(maxId, "\">\n                        <input id=\"check").concat(titleId, "0").concat(maxId, "\" type=\"checkbox\"><span>").concat(content, "</span>\n                      </label>\n                    </li>");
+            var $li = document.createElement('li');
+            $li.innerHTML = "<li>\n                      <label class=\"chk\" for=\"check".concat(titleId, "0").concat(maxId, "\">\n                        <input id=\"check").concat(titleId, "0").concat(maxId, "\" type=\"checkbox\"><span>").concat(content, "</span>\n                      </label>\n                    </li>");
+            $checklist.appendChild($li);
             $checkListInput.value = '';
           });
         });
@@ -10832,6 +10840,12 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
               completed: !check.completed
             }) : check;
           });
+          var trueLength = checklist.filter(function (check) {
+            return check.completed === true;
+          }).length;
+          var currentPer = "".concat("".concat(Math.floor(100 / checklist.length * trueLength), "%"));
+          $completePer.textContent = "".concat(currentPer);
+          $successBar.setAttribute("style", "width:".concat(currentPer));
           var data = workList.map(function (item) {
             return item.id === +subTitleId ? _objectSpread({}, item, {
               id: +subTitleId,
@@ -10842,7 +10856,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             id: +titleId,
             title: workTitle,
             list: data
-          }).then(console.log);
+          });
         });
       };
 
@@ -10895,7 +10909,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     if (target.classList.contains('delete-btn-img')) {
       var titleId = target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.id;
       var subTitleId = target.parentNode.parentNode.id;
-      console.log(titleId, subTitleId);
       deleteSubwork(titleId, subTitleId);
     }
 
