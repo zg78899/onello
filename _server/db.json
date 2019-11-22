@@ -1,0 +1,107 @@
+{
+  "works": [
+    {
+      "title": "프로젝트 발표준비",
+      "id": 1,
+      "list": [
+        {
+          "id": 101,
+          "title": "프로젝트 발표준비",
+          "date": "19/11/22",
+          "labels": [
+            {
+              "state": "low",
+              "check": true
+            },
+            {
+              "state": "medium",
+              "check": true
+            },
+            {
+              "state": "high",
+              "check": false
+            },
+            {
+              "state": "veryhigh",
+              "check": false
+            }
+          ],
+          "checklist": [
+            {
+              "id": "check101",
+              "content": "영상제작",
+              "completed": true
+            },
+            {
+              "id": "check102",
+              "content": "영상자막추가",
+              "completed": true
+            },
+            {
+              "id": "check103",
+              "content": "발표준비",
+              "completed": true
+            },
+            {
+              "id": "check104",
+              "content": "발표시간준수",
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": 105,
+          "title": "용모단정",
+          "date": "19/11/22",
+          "labels": [
+            {
+              "state": "low",
+              "check": false
+            },
+            {
+              "state": "medium",
+              "check": false
+            },
+            {
+              "state": "high",
+              "check": false
+            },
+            {
+              "state": "veryhigh",
+              "check": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "프로젝트 발표",
+      "id": 2,
+      "list": [
+        {
+          "id": 201,
+          "title": "발표",
+          "date": "19/11/22",
+          "labels": [
+            {
+              "state": "low",
+              "check": false
+            },
+            {
+              "state": "medium",
+              "check": false
+            },
+            {
+              "state": "high",
+              "check": false
+            },
+            {
+              "state": "veryhigh",
+              "check": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
