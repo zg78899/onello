@@ -1,0 +1,385 @@
+@charset "utf-8";
+
+/* 섹션별 컨텐츠 스타일 */
+.popup-wrap {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 760px;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 100;
+}
+
+.popup-wrap .dim {
+  content: '';
+  position: absolute;
+  top: -9999px;
+  right: -9999px;
+  bottom: -9999px;
+  left: -9999px;
+  background: rgba(0, 0, 0, .4);
+}
+
+.register-popup {
+  position: relative;
+  width: 760px;
+  z-index: 1;
+  background: #eee;
+  padding: 30px 40px;
+  border-radius: 10px;
+  transform: translateY(30px);
+  animation: fade-in .6s cubic-bezier(.17,.67,.44,.85) forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popup-title {
+  font-size: 2.4rem;
+  color: #48465b;
+  word-break: break-all;
+}
+
+.popup-subtitle {
+  font-size: 1.6rem;
+  margin: 15px 0 0;
+}
+
+.popup-subtitle a {
+  display: inline-block;
+  line-height: 2rem;
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+.popup-created-time {
+  font-size: 1.4rem;
+  margin: 10px 0 0;
+}
+
+.btn-close-popup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #517fa4;
+  transition: all .3s;
+}
+
+.btn-close-popup:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  margin: -1px 0 0 -7px;
+  background: #fff;
+  transform: rotate(-45deg);
+  transition: all .3s;
+}
+
+.btn-close-popup:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  margin: -1px 0 0 -7px;
+  background: #fff;
+  transform: rotate(45deg);
+  transition: all .3s;
+}
+
+.btn-close-popup:hover {
+  background: #5d78ff;
+}
+
+.btn-close-popup:hover:before, .btn-close-popup:hover:after {
+  background: #fff;
+}
+
+.popup-main-content {
+  margin: 25px 0 0;
+}
+
+.content-area > div:not(:first-child) {
+  margin: 30px 0 0;
+}
+
+.content-area {
+  float: left;
+  width: 400px;
+}
+
+.description-content {
+  height: 150px;
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1.8rem;
+  resize: none;
+  /* display: none; */
+}
+.description-text{
+  height: 150px;
+  border-radius: 10px;
+  background: #dedede;
+  font-size: 1.8rem;
+  padding: 10px;
+  /* border: none; */
+  /* resize: none; */
+}
+
+.description-textbox {
+  height: 150px;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1.8rem;
+  word-break: break-all;
+  background: #e8e8e8;
+}
+
+.description-btn.save {
+  border: 1px solid #1dc9B7;
+  background: #1dc9B7;
+  color: #e2f6f3;
+}
+
+.description-btn.save:hover {
+  border: 1px solid #18a899;
+  background: #18a899;
+  color: #fff;
+}
+
+.description-btn.modify {
+  border: 1px solid #fd397a;
+  background: #fd397a;
+  color: #fff;
+}
+
+.description-btn.modify:hover {
+  border: 1px solid #fd1361;
+  background: #fd1361;
+  color: #fff;
+}
+
+.area-title {
+  position: relative;
+  background-position: left center;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  font-size: 2rem;
+  line-height: 3rem;
+  margin: 0 0 15px;
+  word-break: break-all;
+}
+
+.area-title:before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: -25px;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+.description-area .area-title:before {
+  background-image: url(../images/common/list.png);
+}
+
+.checklist-area .area-title:before {
+  background-image: url(../images/common/checklist.png);
+}
+
+.progress-contents {
+  position: relative;
+  padding: 5px 0 5px 50px;
+}
+
+.complete-percent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 1.8rem;
+  line-height: 2rem;
+}
+
+.progress-bar {
+  position: relative;
+  background: #f0f3ff;
+  height: 10px;
+  border-radius: 5px;
+}
+
+.success-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 5px;
+  background: #5d78ff;
+  transition: width .4s;
+}
+
+.checklist-area {
+  position: relative;
+}
+
+.check-list {
+  margin: 20px 0 0;
+}
+
+.check-list li {
+  font-size: 1.8rem;
+  margin: 10px 0 0;
+}
+
+.check-list li:first-child {
+  margin: 0;
+}
+
+.add-checklist-box {
+  overflow: hidden;
+  margin: 20px 0 0;
+}
+
+.add-checklist-box > * {
+  float: left;
+  margin: 0 0 0 15px;
+}
+
+.add-checklist-box > *:first-child{
+  margin: 0;
+}
+
+input.add-checklist-input {
+  width: 265px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+}
+
+.popup-add-ons {
+  float: right;
+  width: 200px;
+}
+
+.popup-add-ons .title {
+  margin: 0 0 10px;
+  font-size: 2rem;
+  line-height: 3rem;
+}
+
+.members-list {
+  overflow: hidden;
+  margin: 0 0 -20px;
+}
+
+.members-list li {
+  float: left;
+  width: 35px;
+  height: 35px;
+  margin: 0 15px 15px 0;
+  border-radius: 50%;
+  background: #f0f3ff;
+  font-size: 1.8rem;
+  line-height: 3.5rem;
+  color: #93a2dd;
+  text-align: center;
+}
+
+.labels {
+  margin: 20px 0 0;
+}
+
+.colors-list {
+  overflow: hidden;
+  margin: 0 0 -15px;
+}
+
+.colors-list li {
+  float: left;
+  margin: 0 15px 15px 0;
+}
+
+.colors-list label {
+  display: inline-block;
+}
+
+.colors-list label span {
+  display: inline-block;
+  position: relative;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.colors-list label span:before {
+  display: none;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  background-image: url(../images/common/color-check.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 20px;
+}
+
+.colors-list label input:checked + span:before {
+  display: block;
+}
+
+#low span {
+  background: #fed600;
+  color: #fed600;
+}
+
+#medium span {
+  background: #ff9f1a;
+  color: #ff9f1a;
+}
+
+#high span {
+  background: #eb5a46;
+  color: #eb5a46;
+}
+
+#veryhigh span {
+  background: #5578eb;
+  color: #5578eb;
+}
+
+.state-check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.add-check {
+  margin: 20px 0 0;
+}
+.hide {
+  display: none;
+}

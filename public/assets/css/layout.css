@@ -1,0 +1,468 @@
+@charset "utf-8";
+
+#wrap {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: #f2f3f8;
+}
+
+#main {
+  width: calc(100% - 350px);
+  min-height: 100vh;
+  margin: 0 0 0 350px;
+  padding: 10px 30px;
+  transition: all .4s;
+}
+
+.gnb-close #main {
+  width: 100%;
+  margin: 0;
+}
+
+.main-work-contents {
+  height: calc(100vh - 120px);
+}
+
+.info-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 350px;
+  padding: 50px 25px 10px;
+  background: #242939;
+  transition: all .4s;
+}
+
+.gnb-close .info-banner {
+  margin: 0 0 0 -350px;
+}
+
+.logo,
+.group-name {
+  position: absolute;
+}
+
+.logo {
+  top: 10px;
+  left: 25px;
+  font-family: Cabin;
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 3.4rem;
+  color: #fff;
+}
+
+.logo a {
+  display: block;
+}
+
+.group-name {
+  top: 10px;
+  right: 25px;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 3.4rem;
+  color: #536be2;
+}
+
+.my-info {
+  overflow: hidden;
+  position: relative;
+  min-height: 120px;
+  padding: 80px 0 80px 140px;
+}
+
+.my-info > img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0;
+
+}
+
+.my-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.my-email {
+  margin: 10px 0 0;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.co-worker {
+  padding: 30px 0 0;
+  border-top: 1px dotted #fff;
+}
+
+.co-worker .title {
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #687393;
+}
+
+.co-worker-list {
+  margin: 20px 0 0;
+}
+
+.co-worker-list li {
+  overflow: hidden;
+  position: relative;
+  min-height: 80px;
+  margin: 10px 0 0;
+  padding: 25px 0 25px 100px;
+}
+
+.co-worker-list li:first-child {
+  margin: 0;
+}
+
+.co-worker-list > li > img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin: -40px 0 0;
+}
+
+.worker-name {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.worker-mail {
+  margin: 5px 0 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.menu-close {
+  position: absolute;
+  top: 0;
+  right: -70px;
+  width: 70px;
+  height: 70px;
+  z-index: 1;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background: #242939;
+}
+
+.menu-close:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 4px;
+  margin: -7px 0 0 -10px;
+  background: #fff;
+  transform: rotate(-45deg);
+  transition: all .4s;
+}
+
+.menu-close:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 4px;
+  margin: 5px 0 0 -10px;
+  transform: rotate(-130deg);
+  background: #fff;
+  transition: all .4s;
+}
+
+.gnb-close .menu-close:before {
+  transform: rotate(-135deg);
+}
+
+.gnb-close .menu-close:after {
+  transform: rotate(-40deg);
+}
+/* 수지 : main - coworker 시작 */
+/* digital-clock 영역 */
+.utils-area {
+  overflow: hidden;
+  padding: 0 50px;
+  margin-bottom: 20px;
+}
+
+.digital-clock {
+  float: right;
+  font-size: 0;
+}
+
+.digital-clock .title {
+  display: inline-block;
+  margin: 0 10px 0 0;
+  font-size: 2rem;
+  line-height: 5rem;
+  color: #5d77fe;
+}
+.digital-time {
+  display: inline-block;
+  width: 120px;
+  font-family: NewsCycle;
+  font-size: 3rem;
+  line-height: 4rem;
+  text-align: center;
+  color: #5d77fe;
+}
+
+
+/* 대제목 추가 버튼 */
+.create-btn-box {
+  float: left;
+}
+
+.create-main-work {
+  display: block;
+}
+
+.create-main-work + .main-create-input {
+  display: none;
+  height: 50px;
+  border-width: 0 0 2px;
+  border-color: #5d78ff;
+  background: none;
+  font-size: 1.6rem;
+  color: #5d78ff;
+}
+
+.create-main-work + .main-create-input::placeholder {
+  color: #5d78ff;
+}
+
+.create-main-work.on {
+  display: none;
+}
+
+.create-main-work.on + .main-create-input {
+  display: block;
+}
+
+/* co-work-container 영역*/
+
+/* 큰 카테고리 영역 */
+.main-work {
+  display: inline-block;
+  font-size: 0;
+}
+
+.main-work > li {
+  display: inline-block;
+  position: relative;
+  width: 350px;
+  margin: 0 0 0 15px;
+  padding: 20px;
+  border-radius: 10px;
+  word-break: break-all;
+  background: #fff;
+}
+
+.main-work > li:first-child {
+  margin: 0;
+}
+
+.main-work li .title-box {
+  position: relative;
+  padding: 0 30px 0 0;
+  margin-bottom: 20px;
+}
+
+.main-work .title-box .title {
+  display: block;
+  font-size: 2.4rem;
+  line-height: 4rem;
+  color: #48465b;
+  cursor: pointer;
+}
+
+.main-work li .title-box .modify-input {
+  display: none;
+  border-width: 0 0 1px;
+  font-size: 1.8rem;
+}
+
+.main-work li .title-box .title.on {
+  display: none;
+}
+
+.main-work li .title-box .title.on + .modify-input {
+  display: block;
+}
+
+/* 작은 카테고리 영역 */
+.detail-work-box {
+  max-height: 410px;
+}
+
+.detail-work li {
+  overflow: hidden;
+  width: 100%;
+  border-radius: 10px;
+  background: #f7f8fa;
+  font-size: 18px;
+}
+
+.detail-work li {
+  position: relative;
+  margin: 10px 0 0;
+}
+
+.detail-work li:first-child {
+  margin: 0;
+}
+
+.detail-work li a {
+  display: block;
+  padding: 15px 38px 15px 15px;
+  transition: all .4s;
+}
+
+.detail-work li:hover a {
+  background: #f0f3ff;
+}
+
+.detail-work li .delete-detail-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 16px;
+  height: 18px;
+  z-index: 2;
+  opacity: 0;
+  transition: all .4s;
+}
+
+.detail-work li:hover .delete-detail-btn {
+  opacity: 1;
+}
+
+.detail-work .delete-detail-btn img {
+  width: 100%;
+}
+
+.detail-work li .importance {
+  font-size: 0;
+}
+
+.detail-work li .importance span {
+  display: inline-block;
+  width: 50px;
+  height: 8px;
+  margin: 0 0 15px 5px;
+  border-radius: 5px;
+  background: blue;
+  color: transparent;
+}
+
+.detail-work li .importance span:first-child {
+  margin: 0 0 15px;
+}
+
+.detail-work li .importance span.high {
+  background: #eb5a46;
+}
+
+.detail-work li .importance span.medium {
+  background: #ff9f1a;
+}
+
+.detail-work li .importance span.low {
+  background: #f2d600;
+}
+
+.detail-work li .title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0 0 15px;
+  color: #222;
+}
+
+.detail-work li .date {
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+}
+
+/* (공통) 소주제 추가 버튼, 대주제 추가 버튼 */
+.create-detail-work {
+  margin: 20px 0 0;
+}
+
+.create-detail-btn {
+  width: 100%;
+}
+
+.create-detail-btn.on {
+  display: none;
+}
+
+.create-detail-btn + input {
+  display: none;
+  border: none;
+}
+
+.create-detail-btn.on + input {
+  display: block;
+}
+
+/* 대제목 삭제 버튼 */
+.delete-main-work {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #f0f3ff;
+  transition: all .4s;
+}
+
+.delete-main-work:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  margin: -1px 0 0 -7px;
+  background: #93a2dd;
+  transform: rotate(-45deg);
+  transition: all .4s;
+}
+
+.delete-main-work:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  margin: -1px 0 0 -7px;
+  background: #93a2dd;
+  transform: rotate(45deg);
+  transition: all .4s;
+}
+
+.delete-main-work:hover {
+  background: #5d78ff;
+}
+
+.delete-main-work:hover:before, .delete-main-work:hover:after {
+  background: #fff;
+}

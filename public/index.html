@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=1100, user-scalable=yes">
+	<meta name="description" content="사이트설명">
+	<meta name="keywords" content="사이트검색키워드">
+	<meta name="author" content="내일로">
+	<title>Onello</title>
+	<!-- <link rel="shortcut icon" type="image/x-icon" href=""> -->
+	<link rel="stylesheet" href="./assets/css/style.css">
+	<link rel="stylesheet" href="./assets/css/jquery.mCustomScrollbar.css">
+	<script defer src="./assets/js/jquery-1.11.0.min.js"></script>
+	<script defer src="./assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script defer src="./assets/js/scroll.js"></script>
+	<script defer src="./assets/js/bundle.js"></script>
+</head>
+
+<body>
+	<div id="wrap">
+		<aside class="info-banner">
+			<h1 class="logo">
+				<a href="#self">Onello</a>
+			</h1>
+			<h2 class="group-name"><span class="a11y-hidden">그룹 이름</span>JAVASCRIPT</h2>
+			<div class="my-info">
+				<img src="./assets/images/sample/friends_272x272_02.gif" alt="">
+				<p class="my-name">이철환</p>
+				<div class="my-email">publizm@gmail.com</div>
+				<!-- <a href="#">설정</a> -->
+			</div>
+			<div class="co-worker">
+				<div class="title">Co-worker</div>
+				<ul class="co-worker-list">
+					<li>
+						<img src="./assets/images/sample/friends_272x272_03.gif" alt="">
+						<p class="worker-name">김재헌</p>
+						<div class="worker-mail">abc@abc.com</div>
+					</li>
+					<li>
+						<img src="./assets/images/sample/friends_272x272_01.gif" alt="">
+						<p class="worker-name">정수지</p>
+						<div class="worker-mail">abc@abc.com</div>
+					</li>
+				</ul>
+				<div class="btn-box mt20">
+					<a href="#self" class="btn40 c2 fl_r" style="width: 80px;">초대하기</a>
+				</div>
+			</div>
+			<button type="button" class="menu-close"><span class="a11y-hidden">열기</span></button>
+		</aside>
+		<div id="main" role="main">
+			<section class="utils-area">
+				<h2 class="a11y-hidden">카테고리 추가 영역</h2>
+				<div class="digital-clock">
+					<span class="title">현재시간</span>
+					<span class="digital-time">00:00:00</span>
+				</div>
+				<div class="create-btn-box">
+					<button type="button" class="btn50 c4 create-main-work" style="width: 200px;">카테고리 추가</button>
+					<input type="text" class="main-create-input" style="width: 200px;" placeholder="카테고리명을 입력해주세요">
+				</div>
+			</section>
+			<section id="co-work-container">
+				<h2 class="a11y-hidden">협업 할일 목록</h2>
+				<div class="main-work-contents clear-fix">
+					<ul id="main-work" class="main-work"></ul>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+
+</html>
